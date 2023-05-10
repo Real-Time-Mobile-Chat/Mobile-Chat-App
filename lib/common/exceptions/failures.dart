@@ -7,16 +7,18 @@ class Failure with _$Failure {
   const factory Failure(String message, [Map<String, String>? attributes]) =
       _Failure;
 
-  // se usa para comprobar nulos o comprobar resultados de peticiones
+  // check api calls
   const factory Failure.unexpected(String message) = UnexpectedFailure;
 
-  // se usa para funciones no disponibles / no implementadas
+  // uninplemented/unavailable functions
   const factory Failure.unavailable(String message) = UnavailableFailure;
 
+  // auth
   const factory Failure.credentials(String message, [String? username]) =
       CredentialsFailure;
   const factory Failure.api(String message) = ApiFailure;
   const factory Failure.network(String message) = NetworkFailure;
+
   // token
   const factory Failure.notToken(String message) = NotTokenFailure;
   const factory Failure.invalidToken(String message) = InvalidTokenFailure;

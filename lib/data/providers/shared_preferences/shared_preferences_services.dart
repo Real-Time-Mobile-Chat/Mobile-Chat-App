@@ -52,7 +52,7 @@ class SharedPreferencesServices {
     return sharedPreferencesClient.getBool(_userLogged) ?? false;
   }
 
-  // guardar lenguaje seleccionado
+  //selected language
   Future setLanguage(String language) async {
     return sharedPreferencesClient.setString(_language, language);
   }

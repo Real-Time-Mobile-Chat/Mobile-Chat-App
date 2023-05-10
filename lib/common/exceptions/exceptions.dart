@@ -42,14 +42,6 @@ class TokenInfoException with _$TokenInfoException {
 }
 
 @freezed
-class LocalDatasourceException with _$LocalDatasourceException {
-  const factory LocalDatasourceException(String reason) =
-      _LocalDatasourceException;
-  const factory LocalDatasourceException.sql(String reason) =
-      SqlLocalDatasourceException;
-}
-
-@freezed
 class NotFoundException with _$NotFoundException {
   const factory NotFoundException() = _NotFoundException;
 }
