@@ -5,7 +5,6 @@ import 'package:mobile_chat_app/domain/entities/user_credentials.dart';
 import 'shared_preferences_client.dart';
 
 const _token = "user_token";
-const _refreshToken = "refresh_token";
 const _credentials = "user_credentials";
 const _userLogged = 'user_logged';
 const _language = "language";
@@ -27,14 +26,6 @@ class SharedPreferencesServices {
     await sharedPreferencesClient.setString(_token, value);
   }
 
-  Future<void> setRefreshToken(String value) async {
-    await sharedPreferencesClient.setString(_refreshToken, value);
-  }
-
-  String? getRefreshToken() {
-    return sharedPreferencesClient.getString(_refreshToken);
-  }
-
   Future<void> setCredentials(UserCredentials credentials) async {
     await sharedPreferencesClient.setObject(_credentials, credentials.toMap());
   }
@@ -52,9 +43,8 @@ class SharedPreferencesServices {
     return sharedPreferencesClient.getBool(_userLogged) ?? false;
   }
 
-  //selected language
   Future setLanguage(String language) async {
-    return sharedPreferencesClient.setString(_language, language);
+    return (await sharedPreferencesClient.setString(_language, language));
   }
 
   String getLanguage() {

@@ -32,7 +32,7 @@ class MobileChatApp extends StatelessWidget {
               ],
             ),
         translations: Language(),
-        locale: null,
+        locale: appController.getLanguage(),
         fallbackLocale: Get.deviceLocale,
         theme: theme.Theme.theme,
         initialRoute: Routes.initial,
