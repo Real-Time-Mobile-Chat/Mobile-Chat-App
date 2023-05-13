@@ -1,4 +1,3 @@
-const _organization = "organization";
 const _username = "username";
 const _password = "password";
 

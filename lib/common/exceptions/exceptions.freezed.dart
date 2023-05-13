@@ -2830,28 +2830,27 @@ abstract class _NotFoundException implements NotFoundException {
 }
 
 /// @nodoc
-mixin _$VisualServerException {
+mixin _$AppServerException {
   String? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $VisualServerExceptionCopyWith<VisualServerException> get copyWith =>
+  $AppServerExceptionCopyWith<AppServerException> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $VisualServerExceptionCopyWith<$Res> {
-  factory $VisualServerExceptionCopyWith(VisualServerException value,
-          $Res Function(VisualServerException) then) =
-      _$VisualServerExceptionCopyWithImpl<$Res, VisualServerException>;
+abstract class $AppServerExceptionCopyWith<$Res> {
+  factory $AppServerExceptionCopyWith(
+          AppServerException value, $Res Function(AppServerException) then) =
+      _$AppServerExceptionCopyWithImpl<$Res, AppServerException>;
   @useResult
   $Res call({String? message});
 }
 
 /// @nodoc
-class _$VisualServerExceptionCopyWithImpl<$Res,
-        $Val extends VisualServerException>
-    implements $VisualServerExceptionCopyWith<$Res> {
-  _$VisualServerExceptionCopyWithImpl(this._value, this._then);
+class _$AppServerExceptionCopyWithImpl<$Res, $Val extends AppServerException>
+    implements $AppServerExceptionCopyWith<$Res> {
+  _$AppServerExceptionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -2873,22 +2872,22 @@ class _$VisualServerExceptionCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_VisualServerExceptionCopyWith<$Res>
-    implements $VisualServerExceptionCopyWith<$Res> {
-  factory _$$_VisualServerExceptionCopyWith(_$_VisualServerException value,
-          $Res Function(_$_VisualServerException) then) =
-      __$$_VisualServerExceptionCopyWithImpl<$Res>;
+abstract class _$$_AppServerExceptionCopyWith<$Res>
+    implements $AppServerExceptionCopyWith<$Res> {
+  factory _$$_AppServerExceptionCopyWith(_$_AppServerException value,
+          $Res Function(_$_AppServerException) then) =
+      __$$_AppServerExceptionCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? message});
 }
 
 /// @nodoc
-class __$$_VisualServerExceptionCopyWithImpl<$Res>
-    extends _$VisualServerExceptionCopyWithImpl<$Res, _$_VisualServerException>
-    implements _$$_VisualServerExceptionCopyWith<$Res> {
-  __$$_VisualServerExceptionCopyWithImpl(_$_VisualServerException _value,
-      $Res Function(_$_VisualServerException) _then)
+class __$$_AppServerExceptionCopyWithImpl<$Res>
+    extends _$AppServerExceptionCopyWithImpl<$Res, _$_AppServerException>
+    implements _$$_AppServerExceptionCopyWith<$Res> {
+  __$$_AppServerExceptionCopyWithImpl(
+      _$_AppServerException _value, $Res Function(_$_AppServerException) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2896,7 +2895,7 @@ class __$$_VisualServerExceptionCopyWithImpl<$Res>
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(_$_VisualServerException(
+    return _then(_$_AppServerException(
       freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -2907,22 +2906,22 @@ class __$$_VisualServerExceptionCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_VisualServerException implements _VisualServerException {
-  const _$_VisualServerException([this.message]);
+class _$_AppServerException implements _AppServerException {
+  const _$_AppServerException([this.message]);
 
   @override
   final String? message;
 
   @override
   String toString() {
-    return 'VisualServerException(message: $message)';
+    return 'AppServerException(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_VisualServerException &&
+            other is _$_AppServerException &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -2932,19 +2931,19 @@ class _$_VisualServerException implements _VisualServerException {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_VisualServerExceptionCopyWith<_$_VisualServerException> get copyWith =>
-      __$$_VisualServerExceptionCopyWithImpl<_$_VisualServerException>(
+  _$$_AppServerExceptionCopyWith<_$_AppServerException> get copyWith =>
+      __$$_AppServerExceptionCopyWithImpl<_$_AppServerException>(
           this, _$identity);
 }
 
-abstract class _VisualServerException implements VisualServerException {
-  const factory _VisualServerException([final String? message]) =
-      _$_VisualServerException;
+abstract class _AppServerException implements AppServerException {
+  const factory _AppServerException([final String? message]) =
+      _$_AppServerException;
 
   @override
   String? get message;
   @override
   @JsonKey(ignore: true)
-  _$$_VisualServerExceptionCopyWith<_$_VisualServerException> get copyWith =>
+  _$$_AppServerExceptionCopyWith<_$_AppServerException> get copyWith =>
       throw _privateConstructorUsedError;
 }

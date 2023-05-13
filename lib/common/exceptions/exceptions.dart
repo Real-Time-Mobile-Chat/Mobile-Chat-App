@@ -47,7 +47,7 @@ class NotFoundException with _$NotFoundException {
 }
 
 @freezed
-class VisualServerException with _$VisualServerException {
-  const factory VisualServerException([String? message]) =
-      _VisualServerException;
+class AppServerException with _$AppServerException {
+  const factory AppServerException([String? message]) =
+      _AppServerException;
 }
