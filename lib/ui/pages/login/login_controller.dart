@@ -1,16 +1,22 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_chat_app/common/exceptions/failures.dart';
+import 'package:mobile_chat_app/common/utils/error_handler_utils.dart';
+import 'package:mobile_chat_app/config/routes/routes.dart';
+import 'package:mobile_chat_app/domain/entities/user_credentials.dart';
+import 'package:mobile_chat_app/domain/use_cases/auth/login_case.dart';
+import 'package:mobile_chat_app/domain/use_cases/local/get_user_credentials_case.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
   var obscured = true.obs;
   var loading = false.obs;
   var error = false.obs;
-  //final GetUserTokenCase getUserTokenCase = Get.find();
-  //final GetUserTokenInfoCase getUserTokenInfoCase = Get.find();
-  // final GetUserCredentialsCase getUserCredentialsCase = Get.find();
+  final LoginCase loginCase = Get.find();
+  final GetUserCredentialsCase getUserCredentialsCase = Get.find();
 
-  final userTextEditController = TextEditingController();
+  final emailTextEditController = TextEditingController();
   final passTextEditController = TextEditingController();
 
   LoginController() {
@@ -19,44 +25,40 @@ class LoginController extends GetxController {
 
   @override
   void dispose() {
-    userTextEditController.dispose();
+    emailTextEditController.dispose();
     passTextEditController.dispose();
     super.dispose();
   }
 
   void _loadCredentials() {
-    // Either<Failure, UserCredentials> resultCredentials =
-    //     getUserCredentialsCase.call();
+    Either<Failure, UserCredentials> resultCredentials =
+        getUserCredentialsCase.call();
 
-    // UserCredentials userCredentials =
-    //     resultCredentials.getOrElse(() => UserCredentials("", ""));
-    // userTextEditController.text = userCredentials.username;
-    // passTextEditController.text = userCredentials.password;
+    UserCredentials userCredentials =
+        resultCredentials.getOrElse(() => UserCredentials("", ""));
+    emailTextEditController.text = userCredentials.email;
+    passTextEditController.text = userCredentials.password;
   }
 
   void visiblePassword() {
     obscured.value = !obscured.value;
   }
 
-  /* Future login() async {
-    userTextEditController.text = userTextEditController.text.trim();
+  Future login() async {
+    emailTextEditController.text = emailTextEditController.text.trim();
     passTextEditController.text = passTextEditController.text.trim();
-    orgTextEditController.text = orgTextEditController.text.trim();
     if (formKey.currentState!.validate()) {
       try {
         loading.value = true;
         error.value = false;
-        Either<Failure, bool> result =
-            await getUserTokenCase.call(GetUserTokenParams(
-          orgTextEditController.text,
-          userTextEditController.text,
+        Either<Failure, bool> result = await loginCase.call(UserCredentials(
+          emailTextEditController.text,
           passTextEditController.text,
         ));
         if (result.isLeft()) {
           error.value = true;
         } else {
-          // descargar los datos del usuario
-          await getUserTokenInfoCase.call();
+          // TODO: descargar los datos del usuario
           Get.offNamed(Routes.landpage);
         }
       } catch (error) {
@@ -65,5 +67,5 @@ class LoginController extends GetxController {
         loading.value = false;
       }
     }
-  } */
+  }
 }

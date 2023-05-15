@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:mobile_chat_app/common/exceptions/exceptions.dart';
 import 'package:mobile_chat_app/domain/entities/user_credentials.dart';
 
 import 'shared_preferences_client.dart';
@@ -14,12 +13,8 @@ class SharedPreferencesServices {
 
   SharedPreferencesServices(this.sharedPreferencesClient);
 
-  String checkToken() {
-    String? token = sharedPreferencesClient.getString(_token);
-
-    if (token == null) throw const EmptyTokenException();
-
-    return token;
+  String? getToken() {
+    return sharedPreferencesClient.getString(_token);
   }
 
   Future<void> setToken(String value) async {

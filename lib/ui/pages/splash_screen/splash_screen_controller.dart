@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:mobile_chat_app/common/exceptions/failures.dart';
 import 'package:mobile_chat_app/config/routes/routes.dart';
 import 'package:mobile_chat_app/domain/entities/user_credentials.dart';
+import 'package:mobile_chat_app/domain/use_cases/auth/login_case.dart';
+import 'package:mobile_chat_app/domain/use_cases/local/get_token_case.dart';
+import 'package:mobile_chat_app/domain/use_cases/local/get_user_credentials_case.dart';
 
 class SplashScreenController extends GetxController {
   static bool needLogin = false;
@@ -16,12 +19,12 @@ class SplashScreenController extends GetxController {
   }
 
   Future _startLoginFlow() async {
-    // await _startLoginUseCases();
+    await _startLoginUseCases();
     await _delaySplashScreen();
-   // if (needLogin) {
+    if (needLogin) {
       Get.offAndToNamed(Routes.login);
-    //} else {
-      //Get.offAndToNamed(Routes.landpage);
+    } else {
+      Get.offAndToNamed(Routes.landpage);
     }
   }
 
@@ -29,32 +32,26 @@ class SplashScreenController extends GetxController {
     await Future.delayed(const Duration(milliseconds: 1500), () {});
   }
 
-  /* Future _startLoginUseCases() async {
-    final VerifyUserTokenCase verifyUserTokenCase = Get.find();
-    final VerifyRefreshUserTokenCase refreshUserTokenCase = Get.find();
+  Future _startLoginUseCases() async {
     final GetUserCredentialsCase getUserCredentialsCase = Get.find();
-    final GetUserTokenCase getUserTokenCase = Get.find();
-    final GetUserTokenInfoCase getUserTokenInfoCase = Get.find();
+    final GetTokenCase getTokenCase = Get.find();
+    final LoginCase loginCase = Get.find();
 
-    Either<Failure, bool> resultVerifyToken = verifyUserTokenCase.call();
-    Either<Failure, bool> resultRefreshToken = refreshUserTokenCase.call();
     Either<Failure, UserCredentials> resultCredentials =
         getUserCredentialsCase.call();
+    Either<Failure, bool> resultToken = getTokenCase.call();
 
-    if ((resultVerifyToken.isLeft() && resultRefreshToken.isLeft()) ||
-        resultCredentials.isLeft()) {
+    if (resultCredentials.isLeft() && resultToken.isLeft()) {
       needLogin = true;
     } else {
       UserCredentials userCredentials =
           resultCredentials.getOrElse(() => UserCredentials("", ""));
 
-      Either<Failure, bool> resultLogin = await getUserTokenCase.call(
-          GetUserTokenParams(userCredentials.username, userCredentials.password));
+      Either<Failure, bool> resultLogin = await loginCase.call(userCredentials);
 
-      Either<Failure, bool> resultInfoCase = await getUserTokenInfoCase.call();
-      
-      if (resultLogin.isLeft() || resultInfoCase.isLeft()) {
+      if (resultLogin.isLeft()) {
         needLogin = true;
       }
     }
-  } */
+  }
+}

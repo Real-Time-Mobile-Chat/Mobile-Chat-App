@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
                                   Obx(() => AppTextField(
                                         key: const Key("user"),
                                         controller: loginController
-                                            .userTextEditController,
+                                            .emailTextEditController,
                                         validator: Validator.notNull,
                                         disabled: loginController.loading.value,
                                         errorText: LabelsKeys.errorUser.tr,
@@ -65,6 +65,9 @@ class LoginPage extends StatelessWidget {
                                         )),
                                   ),
                                   const SizedBox(height: 50),
+                                  ElevatedButton(
+                                      onPressed: loginController.login,
+                                      child: Text("LOGIN"))
                                 ],
                               ),
                             )),

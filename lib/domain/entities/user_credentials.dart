@@ -1,22 +1,22 @@
-const _username = "username";
+const _email = "email";
 const _password = "password";
 
 class UserCredentials {
-  final String username;
+  final String email;
   final String password;
 
-  UserCredentials(this.username, this.password);
+  UserCredentials(this.email, this.password);
 
   Map<String, dynamic> toMap() {
     return {
-      _username: username,
+      _email: email,
       _password: password,
     };
   }
 
   factory UserCredentials.fromMap(Map<String, dynamic>? map) {
     return UserCredentials(
-      map?[_username] ?? '',
+      map?[_email] ?? '',
       map?[_password] ?? '',
     );
   }

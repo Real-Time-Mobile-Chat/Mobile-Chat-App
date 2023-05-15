@@ -8,6 +8,7 @@ import 'package:mobile_chat_app/ui/pages/splash_screen/splash_screen_page.dart';
 class Routes {
   static const String initial = '/';
   static const String login = '/login';
+  static const String landpage = '/landpage';
 }
 
 class RouteGenerator {
