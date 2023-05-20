@@ -5,39 +5,23 @@ import 'package:mobile_chat_app/common/exceptions/failures.dart';
 import 'package:mobile_chat_app/common/utils/error_handler_utils.dart';
 import 'package:mobile_chat_app/config/routes/routes.dart';
 import 'package:mobile_chat_app/domain/entities/user_credentials.dart';
-import 'package:mobile_chat_app/domain/use_cases/auth/login_case.dart';
-import 'package:mobile_chat_app/domain/use_cases/local/get_user_credentials_case.dart';
+import 'package:mobile_chat_app/domain/use_cases/auth/register_case.dart';
 
-class LoginController extends GetxController {
+class RegisterController extends GetxController {
   final formKey = GlobalKey<FormState>();
   var obscured = true.obs;
   var loading = false.obs;
   var error = false.obs;
-  final LoginCase loginCase = Get.find();
-  final GetUserCredentialsCase getUserCredentialsCase = Get.find();
+  final RegisterCase registerCase = Get.find();
 
   final phoneTextEditController = TextEditingController();
   final passTextEditController = TextEditingController();
-
-  LoginController() {
-    _loadCredentials();
-  }
 
   @override
   void dispose() {
     phoneTextEditController.dispose();
     passTextEditController.dispose();
     super.dispose();
-  }
-
-  void _loadCredentials() {
-    Either<Failure, UserCredentials> resultCredentials =
-        getUserCredentialsCase.call();
-
-    UserCredentials userCredentials =
-        resultCredentials.getOrElse(() => UserCredentials("", ""));
-    phoneTextEditController.text = userCredentials.phone;
-    passTextEditController.text = userCredentials.password;
   }
 
   void visiblePassword() {
@@ -51,15 +35,14 @@ class LoginController extends GetxController {
       try {
         loading.value = true;
         error.value = false;
-        Either<Failure, bool> result = await loginCase.call(UserCredentials(
+        Either<Failure, bool> result = await registerCase.call(UserCredentials(
           phoneTextEditController.text,
           passTextEditController.text,
         ));
         if (result.isLeft()) {
           error.value = true;
         } else {
-          // TODO: descargar los datos del usuario
-          Get.offNamed(Routes.landpage);
+          Get.offNamed(Routes.login);
         }
       } catch (error) {
         ErrorHandler.showError(error);

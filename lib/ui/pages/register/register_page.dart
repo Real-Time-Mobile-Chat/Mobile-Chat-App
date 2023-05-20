@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_chat_app/config/constants/colors.dart';
 import 'package:mobile_chat_app/config/i18n/labels_keys.dart';
-import 'package:mobile_chat_app/config/routes/routes.dart';
-import 'package:mobile_chat_app/ui/pages/login/login_controller.dart';
+import 'package:mobile_chat_app/ui/pages/register/register_controller.dart';
 import 'package:mobile_chat_app/ui/widgets/inputs/app_text_field.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
-  final LoginController loginController = Get.find();
+class ResgisterPage extends StatelessWidget {
+  ResgisterPage({Key? key}) : super(key: key);
+  final RegisterController registerController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         body: Form(
-            key: loginController.formKey,
+            key: registerController.formKey,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Padding(
@@ -37,10 +36,11 @@ class LoginPage extends StatelessWidget {
                                   const SizedBox(height: 30),
                                   Obx(() => AppTextField(
                                         key: const Key(LabelsKeys.phoneNumber),
-                                        controller: loginController
+                                        controller: registerController
                                             .phoneTextEditController,
                                         validator: Validator.notNull,
-                                        disabled: loginController.loading.value,
+                                        disabled:
+                                            registerController.loading.value,
                                         errorText: LabelsKeys.errorPhone.tr,
                                         labelText: LabelsKeys.phoneNumber.tr,
                                       )),
@@ -48,18 +48,19 @@ class LoginPage extends StatelessWidget {
                                   Obx(
                                     () => AppTextField(
                                         key: const Key(LabelsKeys.password),
-                                        controller: loginController
+                                        controller: registerController
                                             .passTextEditController,
                                         validator: Validator.notNull,
                                         errorText: LabelsKeys.errorPassword.tr,
                                         obscureText:
-                                            loginController.obscured.value,
-                                        disabled: loginController.loading.value,
+                                            registerController.obscured.value,
+                                        disabled:
+                                            registerController.loading.value,
                                         labelText: LabelsKeys.password.tr,
                                         suffixIcon: GestureDetector(
-                                          onTap:
-                                              loginController.visiblePassword,
-                                          child: Icon(loginController
+                                          onTap: registerController
+                                              .visiblePassword,
+                                          child: Icon(registerController
                                                   .obscured.value
                                               ? Icons.remove_red_eye
                                               : Icons.remove_red_eye_outlined),
@@ -67,13 +68,8 @@ class LoginPage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 50),
                                   ElevatedButton(
-                                      onPressed: loginController.login,
-                                      child: const Text(LabelsKeys.login)),
-                                  const SizedBox(height: 25),
-                                  GestureDetector(
-                                    onTap: (() => Get.toNamed(Routes.register)),
-                                    child: Text(LabelsKeys.register.tr),
-                                  ),
+                                      onPressed: registerController.login,
+                                      child:  Text(LabelsKeys.register.tr))
                                 ],
                               ),
                             )),

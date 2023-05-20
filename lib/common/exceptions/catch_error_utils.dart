@@ -4,7 +4,7 @@ import 'package:mobile_chat_app/common/exceptions/failures.dart';
 import 'package:mobile_chat_app/config/i18n/failure_keys.dart';
 
 class CatchErrorUtils {
-  static Failure catchException(dynamic error, {String? email}) {
+  static Failure catchException(dynamic error, {String? phone}) {
 
     if (error is UnexpectedException) {
       return UnexpectedFailure(FailureKeys.unexpected.tr);
@@ -15,7 +15,7 @@ class CatchErrorUtils {
     }
 
     if (error is NetException) {
-      return _catchNetException(error, email: email);
+      return _catchNetException(error, phone: phone);
     }
 
     if (error is TokenException) return _catchTokenException(error);
@@ -25,12 +25,12 @@ class CatchErrorUtils {
     return Failure(error.toString());
   }
 
-  static Failure _catchNetException(dynamic error, {String? email}) {
+  static Failure _catchNetException(dynamic error, {String? phone}) {
     if (error is UnauthorizedNetException) {
-      if (email is String) {
+      if (phone is String) {
         return CredentialsFailure(
           FailureKeys.netUnauthorizedWithUser.trParams({
-            FailureKeys.netUnauthorizedParamUser: email,
+            FailureKeys.netUnauthorizedParamUser: phone,
           }),
         );
       }

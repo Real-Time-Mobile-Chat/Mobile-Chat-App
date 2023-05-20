@@ -4,6 +4,7 @@ import 'package:mobile_chat_app/domain/entities/user_credentials.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure, bool>> login(UserCredentials params);
+  Future<Either<Failure, bool>> register(UserCredentials params);
   Future<Either<Failure, bool>> refreshToken();
   Future<Either<Failure, bool>> logoutUser();
 

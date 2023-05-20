@@ -2,13 +2,13 @@ import 'package:mobile_chat_app/common/exceptions/catch_error_utils.dart';
 import 'package:mobile_chat_app/common/exceptions/exceptions.dart';
 import 'package:mobile_chat_app/common/exceptions/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:mobile_chat_app/data/providers/api/auth/api_services.dart';
+import 'package:mobile_chat_app/data/providers/api/auth/api_auth-services.dart';
 import 'package:mobile_chat_app/data/providers/shared_preferences/shared_preferences_services.dart';
 import 'package:mobile_chat_app/domain/entities/user_credentials.dart';
 import 'package:mobile_chat_app/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImp extends AuthRepository {
-  final ApiServices apiServices;
+  final ApiAuthServices apiServices;
   final SharedPreferencesServices sharedPreferencesServices;
 
   AuthRepositoryImp(this.apiServices, this.sharedPreferencesServices);
@@ -31,11 +31,26 @@ class AuthRepositoryImp extends AuthRepository {
 
       // TODO: no se debe guardar el password
       sharedPreferencesServices
-          .setCredentials(UserCredentials(params.email, params.password));
+          .setCredentials(UserCredentials(params.phone, params.password));
       return const Right(true);
     } catch (error) {
       return Left(
-        CatchErrorUtils.catchException(error, email: params.email),
+        CatchErrorUtils.catchException(error, phone: params.phone),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> register(UserCredentials params) async {
+    try {
+      await apiServices.register(params);
+
+      // TODO: REGISTER
+
+      return const Right(true);
+    } catch (error) {
+      return Left(
+        CatchErrorUtils.catchException(error, phone: params.phone),
       );
     }
   }
@@ -55,7 +70,7 @@ class AuthRepositoryImp extends AuthRepository {
   Future<Either<Failure, bool>> refreshToken() async {
     try {
       final credentials = sharedPreferencesServices.getCredentials();
-      if (credentials.email.isEmpty || credentials.password.isEmpty) {
+      if (credentials.phone.isEmpty || credentials.password.isEmpty) {
         throw const UnexpectedException();
       }
 
@@ -63,7 +78,7 @@ class AuthRepositoryImp extends AuthRepository {
 
       if (token == null) {
         final response = await apiServices.login(
-          UserCredentials(credentials.email, credentials.password),
+          UserCredentials(credentials.phone, credentials.password),
         );
 
         final token = response.token;

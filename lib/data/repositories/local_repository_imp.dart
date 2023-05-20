@@ -15,7 +15,7 @@ class LocalRepositoryImp extends LocalRepository {
   Either<Failure, UserCredentials> getCredentials() {
     try {
       final credentials = sharedPreferencesServices.getCredentials();
-      if (credentials.email.isEmpty || credentials.password.isEmpty) {
+      if (credentials.phone.isEmpty || credentials.password.isEmpty) {
         throw const UnexpectedException();
       }
       return Right(credentials);
